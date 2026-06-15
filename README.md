@@ -1,6 +1,6 @@
-# RefusePS
+# RufusPS
 
-**RefusePS** is a PowerShell-based Windows bootable USB creator.
+**RufusPS** is a PowerShell-based Windows bootable USB creator.
 It prepares a USB drive, formats it as FAT32, mounts a Windows ISO, copies the installer files, and automatically splits `install.wim` when required for FAT32 compatibility.
 
 ---
@@ -26,7 +26,7 @@ It prepares a USB drive, formats it as FAT32, mounts a Windows ISO, copies the i
 
 This script will erase the selected USB disk. Use it carefully.
 
-Before running RefusePS:
+Before running RufusPS:
 
 - Remove USB drives you do not want to wipe
 - Double-check the disk number
@@ -53,11 +53,11 @@ The author is not responsible for data loss caused by selecting the wrong disk.
 Clone the repository:
 
 ```powershell
-git clone https://github.com/YOUR_USERNAME/RefusePS.git
-cd RefusePS
+git clone https://github.com/YOUR_USERNAME/RufusPS.git
+cd RufusPS
 ```
 
-Edit the ISO path inside `RefusePS.ps1`:
+Edit the ISO path inside `RufusPS.ps1`:
 
 ```powershell
 $isoImage = "C:\Path\To\windows10.iso"
@@ -68,7 +68,7 @@ Run PowerShell as Administrator.
 Then execute:
 
 ```powershell
-.\RefusePS.ps1
+.\RufusPS.ps1
 ```
 
 The script will show detected USB disks:
@@ -87,14 +87,14 @@ To confirm wiping the disk, type:
 ERASE
 ```
 
-RefusePS will then create the bootable USB installer.
+RufusPS will then create the bootable USB installer.
 
 ---
 
 ## Why FAT32?
 
 FAT32 is used because it is widely supported by UEFI firmware. However, FAT32 has a single-file size limit of 4 GB. Many Windows ISO files include an `install.wim` file larger than 4 GB.
-RefusePS handles this by splitting `install.wim` into smaller `.swm` files:
+RufusPS handles this by splitting `install.wim` into smaller `.swm` files:
 
 ```text
 install.swm
@@ -108,14 +108,14 @@ Windows Setup supports this split-image format.
 
 ## GPT vs MBR
 
-RefusePS uses GPT partitioning by default. This is suitable for modern UEFI-based systems.
+RufusPS uses GPT partitioning by default. This is suitable for modern UEFI-based systems.
 If you need Legacy BIOS boot support, GPT/FAT32 may not be enough. In that case, you may need to modify the script to use MBR instead.
 
 ---
 
 ## Script Overview
 
-RefusePS performs the following actions:
+RufusPS performs the following actions:
 
 1. Checks that the ISO exists
 2. Lists detected USB disks
@@ -136,13 +136,13 @@ RefusePS performs the following actions:
 
 ## Safety Notes
 
-RefusePS avoids wiping every USB disk automatically. Unlike unsafe one-liners such as:
+RufusPS avoids wiping every USB disk automatically. Unlike unsafe one-liners such as:
 
 ```powershell
 Get-Disk | Where BusType -eq 'USB' | Clear-Disk
 ```
 
-RefusePS forces the user to select one USB disk and confirm the operation.
+RufusPS forces the user to select one USB disk and confirm the operation.
 
 Still, the script is destructive. If you choose the wrong disk, the data will be erased.
 
@@ -161,7 +161,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 Then run:
 
 ```powershell
-.\RefusePS.ps1
+.\RufusPS.ps1
 ```
 
 This only changes the execution policy for the current PowerShell session.
@@ -172,7 +172,7 @@ This only changes the execution policy for the current PowerShell session.
 
 Robocopy exit codes below `8` usually mean success or partial success.
 
-RefusePS treats exit codes `8` and above as failure.
+RufusPS treats exit codes `8` and above as failure.
 
 Check that:
 
@@ -204,7 +204,7 @@ Check the following:
 
 ## Disclaimer
 
-RefusePS is provided as-is.
+RufusPS is provided as-is.
 
 You are responsible for verifying the selected disk before continuing.
 
