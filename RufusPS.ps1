@@ -2,13 +2,13 @@
 
 <#
 .SYNOPSIS
-    RefusePS - Create a bootable Windows USB installer from a Windows ISO.
+    RufusPS - Create a bootable Windows USB installer from a Windows ISO.
 
 .AUTHOR
     h4rithd
 
 .DESCRIPTION
-    RefusePS prepares a USB drive for Windows installation by:
+    RufusPS prepares a USB drive for Windows installation by:
     - Selecting a target USB disk safely
     - Wiping and reinitializing the selected USB disk
     - Formatting it as FAT32 for UEFI boot
@@ -26,7 +26,7 @@ $isoImage = "C:\Path\To\windows10.iso"
 $ErrorActionPreference = "Stop"
 
 Write-Host ""
-Write-Host "RefusePS by h4rithd" -ForegroundColor Cyan
+Write-Host "RufusPS by h4rithd" -ForegroundColor Cyan
 Write-Host "Windows Bootable USB Creator" -ForegroundColor Cyan
 Write-Host ""
 
@@ -72,7 +72,7 @@ try {
         Clear-Disk -RemoveData -RemoveOEM -Confirm:$false -PassThru |
         Initialize-Disk -PartitionStyle GPT -PassThru |
         New-Partition -UseMaximumSize -AssignDriveLetter |
-        Format-Volume -FileSystem FAT32 -NewFileSystemLabel "REFUSEPS" -Confirm:$false
+        Format-Volume -FileSystem FAT32 -NewFileSystemLabel "RufusPS" -Confirm:$false
 
     $usbVolume = $formattedVolume
     $usbRoot = "$($usbVolume.DriveLetter):\"
@@ -137,7 +137,7 @@ try {
     }
 
     Write-Host ""
-    Write-Host "RefusePS completed successfully." -ForegroundColor Green
+    Write-Host "RufusPS completed successfully." -ForegroundColor Green
     Write-Host "Bootable Windows USB created at $usbRoot" -ForegroundColor Green
 }
 finally {
